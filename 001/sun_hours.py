@@ -1,3 +1,9 @@
+from skyfield import api
+from skyfield import almanac
+import pandas as pd
+import numpy as np
+
+
 def sunrise_sunset():
     e = api.load('de421.bsp')
     ts = api.load.timescale()
@@ -11,4 +17,5 @@ def sunrise_sunset():
     sunsets = np.array(t.utc_iso()[1::2],
                        dtype=pd._libs.tslibs.timestamps.Timestamp)  # gets every element which index is odd
     # sunrises = sunrises.replace(tzinfo=None)
+
     return sunrises, sunsets
