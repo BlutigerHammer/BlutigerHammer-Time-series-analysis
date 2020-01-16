@@ -16,6 +16,5 @@ def sunrise_sunset():
                         dtype=pd._libs.tslibs.timestamps.Timestamp)  # gets every element which index is even
     sunsets = np.array(t.utc_iso()[1::2],
                        dtype=pd._libs.tslibs.timestamps.Timestamp)  # gets every element which index is odd
-    # sunrises = sunrises.replace(tzinfo=None)
 
     return sunrises, sunsets

@@ -7,7 +7,7 @@ from pandas.plotting import register_matplotlib_converters  # FutureWarning
 register_matplotlib_converters()  # FutureWarning
 
 
-def plotting(data, sunrises, sunsets):
+def plotting(data, sunrises = None, sunsets = None):
     x = data['Timestamp'].values
     y1 = data['CountRate'].values
 
@@ -21,18 +21,19 @@ def plotting(data, sunrises, sunsets):
     # y2 = y2.rolling(window=60).mean()
     # ax2.plot(x,y2,'g-')
 
-    y22 = y2.rolling(window=720).mean()
+    y22 = y2.rolling(window=720).mean() # 720min = 12h - expected seasonal duration
     ax2.plot(x, y22, 'k-')
 
     y3 = y1 * 0 + np.mean(y1)
     ax2.plot(x, y3, 'y-')
     ax1.plot(x, y3, 'y-')
 
-    for i in sunrises:
-        ax2.axvline(pd.Timestamp(i), color='r', alpha=0.5)
-    for i in sunsets:
-        ax2.axvline(pd.Timestamp(i), color='b', alpha=0.5)
-    plt.xlim(x[0], x[len(x) - 1])
+    if sunrises or sunsets is not None:
+        for i in sunrises:
+            ax2.axvline(pd.Timestamp(i), color='r', alpha=0.5)
+        for i in sunsets:
+            ax2.axvline(pd.Timestamp(i), color='b', alpha=0.5)
+        plt.xlim(x[0], x[len(x) - 1])
 
     plt.show()
 
