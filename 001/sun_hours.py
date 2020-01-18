@@ -12,9 +12,7 @@ def sunrise_sunset():
     t1 = ts.utc(2019, 4, 1, 0)
     t, y = almanac.find_discrete(t0, t1, almanac.sunrise_sunset(e, bluffton))
 
-    sunrises = np.array(t.utc_iso()[::2],
-                        dtype=pd._libs.tslibs.timestamps.Timestamp)  # gets every element which index is even
-    sunsets = np.array(t.utc_iso()[1::2],
-                       dtype=pd._libs.tslibs.timestamps.Timestamp)  # gets every element which index is odd
-
-    return sunrises, sunsets
+    sunrises = np.array(t.utc_iso()[::2])  # gets every element which index is even
+    sunsets = np.array(t.utc_iso()[1::2])  # gets every element which index is odd
+    sunrises_sunsets = pd.DataFrame({'sunrises':sunrises, 'sunsets':sunsets})
+    return sunrises_sunsets

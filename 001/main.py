@@ -5,12 +5,12 @@ import data_analysis as da
 import testing
 
 
-# sunrises, sunsets = sh.sunrise_sunset()
+sunrises_sunsets = sh.sunrise_sunset()
 # fo.correcting_data('data\\OULU_march_1min')
-# fo.add_day_night(data, sunrises, sunsets)
+# fo.add_day_night(data, sunrises_sunsets)
 # fo.correcting_data('data\\OULU_all_1day')
-data = fo.read_data('data\\OULU_all_1day_corrected')
-v.plotting(data)
-data1 = fo.delete_empty_data(data)
-v.plotting(data1)
+# data = fo.read_data('data\\OULU_all_1day_corrected')
+# v.plotting(data)
+# data1 = fo.delete_empty_data(data)
+# v.plotting(data1)
 # testing.localized_regression(data)
