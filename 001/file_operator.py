@@ -1,10 +1,12 @@
-import pandas as pd
 import datetime as dt
+
+import pandas as pd
 
 
 def read_data(path):
     data = pd.read_csv(path, sep=',')
     data['Timestamp'] = pd.to_datetime(data['Timestamp'], utc=False)
+    print(type(data['Timestamp'][6]))
 
     return data
 
@@ -12,7 +14,6 @@ def read_data(path):
 def correcting_data(path):
     data = pd.read_csv(path, sep=',', usecols=['Timestamp', 'CorrectedCountRate[cts/min]'])
     data.rename(columns={'CorrectedCountRate[cts/min]': 'CountRate'}, inplace=True)
-    data['Timestamp'] = pd.to_datetime(data['Timestamp'], utc=False)
     data.to_csv('data\\OULU_all_1day_corrected')
 
 
@@ -28,8 +29,9 @@ def add_day_night(data, sunrises, sunsets):
             k1 += 1
     data.to_csv('data\\OULU_march_1min_corrected')
 
+
 def delete_empty_data(data):
     data = data[data['CountRate'] != 0]
-    # data = data[data['CountRate'] < 7000] # delete big magnetic storms
+    # data = data[data['CountRate'] < 7000]  # delete big magnetic storms
     data['Timestamp'] = pd.to_datetime(data['Timestamp'], utc=False)
     return data

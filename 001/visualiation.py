@@ -1,13 +1,16 @@
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
 from pandas.plotting import register_matplotlib_converters  # FutureWarning
+from statsmodels.graphics.tsaplots import plot_acf
+from statsmodels.graphics.tsaplots import plot_pacf
+from statsmodels.nonparametric.smoothers_lowess import lowess
 
 register_matplotlib_converters()  # FutureWarning
 
 
-def plotting(data, sunrises = None, sunsets = None):
+def plotting(data, sunrises=None, sunsets=None):
     x = data['Timestamp'].values
     y1 = data['CountRate'].values
 
@@ -21,7 +24,7 @@ def plotting(data, sunrises = None, sunsets = None):
     # y2 = y2.rolling(window=60).mean()
     # ax2.plot(x,y2,'g-')
 
-    y22 = y2.rolling(window=720).mean() # 720min = 12h - expected seasonal duration
+    y22 = y2.rolling(window=720).mean()  # 720min = 12h - expected seasonal duration
     ax2.plot(x, y22, 'k-')
 
     y3 = y1 * 0 + np.mean(y1)
@@ -38,3 +41,33 @@ def plotting(data, sunrises = None, sunsets = None):
     plt.show()
 
 
+def localized_regression(data):
+    lowess_1 = lowess(data['CountRate'], data['Timestamp'], frac=0.01)
+    # lowess_5 = lowess(data['CountRate'], data['Timestamp'], frac=0.05)
+    # lowess_15 = lowess(data['CountRate'], data['Timestamp'], frac=0.15)
+    # lowess_30 = lowess(data['CountRate'], data['Timestamp'], frac=0.30)
+
+    lowess_x = list(zip(*lowess_1))[0]
+    lowess_y = list(zip(*lowess_1))[1]
+
+    plt.plot(lowess_x, lowess_y, '-')
+    plt.show()
+
+
+def autocorrelation(data):
+    plot_acf(data['CountRate'])
+    plt.show()
+
+
+def partial_correlation(data):
+    plot_pacf(data['CountRate'])  # , lags=100)
+    plt.show()
+
+
+def violin_chart(data):
+    t = data['Timestamp'][0]
+    print(t)
+    print(type(t))
+    print(type(['Timestamp'][0]))
+    print(t.month)
+    sns.violinplot()

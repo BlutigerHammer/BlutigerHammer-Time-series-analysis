@@ -17,14 +17,13 @@ def autocorelation(data):
     result_mul.plot().suptitle('Multiplicative Decompose', fontsize=22)
     result_add.plot().suptitle('Additive Decompose', fontsize=22)
     plt.show()
-
+'''
 def localized_regression(data):
-    '''
+
     df_loess_5 = pd.DataFrame(lowess(data['CountRate'], np.arange(len(data['CountRate']), frac=0.05)[:, 1],
                               index=data['Timestamp'], columns=['value'])
     df_loess_15 = pd.DataFrame(lowess(data['CountRate'], np.arange(len(data['CountRate']), frac=0.15)[:, 1],
                                index=data['Timestamp'], columns=['value'])
-    '''
     # lowess_5 = lowess(data['CountRate'], data['Timestamp'], frac=0.05)
     # lowess_15 = lowess(data['CountRate'], data['Timestamp'], frac=0.15)
     lowess_30 = lowess(data['CountRate'], data['Timestamp'], frac=0.30)
@@ -34,3 +33,4 @@ def localized_regression(data):
 
     plt.plot(lowess_x, lowess_y, '-')
     plt.show()
+'''

@@ -1,7 +1,6 @@
-from skyfield import api
-from skyfield import almanac
-import pandas as pd
 import numpy as np
+from skyfield import almanac
+from skyfield import api
 
 
 def sunrise_sunset():
@@ -14,5 +13,5 @@ def sunrise_sunset():
 
     sunrises = np.array(t.utc_iso()[::2])  # gets every element which index is even
     sunsets = np.array(t.utc_iso()[1::2])  # gets every element which index is odd
-    sunrises_sunsets = pd.DataFrame({'sunrises':sunrises, 'sunsets':sunsets})
-    return sunrises_sunsets
+    # sunrises_sunsets = pd.DataFrame({'sunrises':sunrises, 'sunsets':sunsets})
+    return sunrises, sunsets
