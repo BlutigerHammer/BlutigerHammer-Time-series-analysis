@@ -11,10 +11,3 @@ def naive_methods(data):
     print("standard variation", round(x.std().loc['night', 'CountRate'], 0))
     print("maximum", round(x.max().loc['night', 'CountRate'], 0))
     print("minimum", round(x.min().loc['night', 'CountRate'], 0))
-
-
-def xxx(data):
-    # print(type(data['Timestamp']))
-    x = data.resample('M', on='Timestamp').mean()
-    # print(x)
-

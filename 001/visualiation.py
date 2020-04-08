@@ -2,6 +2,7 @@ import matplotlib.gridspec as gridspec
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import seaborn as sns
 from pandas.plotting import register_matplotlib_converters  # FutureWarning
 from statsmodels.graphics.tsaplots import plot_acf
 from statsmodels.graphics.tsaplots import plot_pacf
@@ -41,14 +42,10 @@ def plotting(data, sunrises=None, sunsets=None):
     plt.show()
 
 
-def localized_regression(data):
-    lowess_1 = lowess(data['CountRate'], data['Timestamp'], frac=0.01)
-    # lowess_5 = lowess(data['CountRate'], data['Timestamp'], frac=0.05)
-    # lowess_15 = lowess(data['CountRate'], data['Timestamp'], frac=0.15)
-    # lowess_30 = lowess(data['CountRate'], data['Timestamp'], frac=0.30)
-
-    lowess_x = list(zip(*lowess_1))[0]
-    lowess_y = list(zip(*lowess_1))[1]
+def localized_regression(data, fraction=0.05):
+    lowess = lowess(data['CountRate'], data['Timestamp'], frac=0.01)
+    lowess_x = list(zip(*lowess))[0]
+    lowess_y = list(zip(*lowess))[1]
 
     plt.plot(lowess_x, lowess_y, '-')
     plt.show()
@@ -62,12 +59,3 @@ def autocorrelation(data):
 def partial_correlation(data):
     plot_pacf(data['CountRate'])  # , lags=100)
     plt.show()
-
-
-def violin_chart(data):
-    t = data['Timestamp'][0]
-    print(t)
-    print(type(t))
-    print(type(['Timestamp'][0]))
-    print(t.month)
-    sns.violinplot()
